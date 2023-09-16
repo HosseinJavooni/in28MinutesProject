@@ -2,13 +2,14 @@ package com.in28Minutes.demo.databaseDemo.entity;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.NamedQuery;
 import jakarta.persistence.Table;
 
 import java.util.Date;
 @Entity
 @Table(name = "PERSON")
+@NamedQuery(name = "all persons", query = "select p from PersonForJPA p")
 public class PersonForJPA {
-
     @Id
     private int id;
     private String name;

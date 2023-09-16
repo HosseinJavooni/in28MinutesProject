@@ -48,17 +48,35 @@ public class PersonJPARepo {
 //        return jdbcTemplate.update("delete from person where id = ?", new Object[] {id});
 //    }
 //
-//    public int insert(PersonForJDBC personForJDBC){
+    public int insert(PersonForJPA personForJPA){
+        //in Spring jdbc
 //        return jdbcTemplate.update(
 //                "INSERT INTO PERSON (id, name, location, birth_date) VALUES (?, ?, ?, ?)" ,
 //                        new Object[] {personForJDBC.getId(), personForJDBC.getName(), personForJDBC.getLocation(),
 //                        new Timestamp(personForJDBC.getBirthDate().getTime())});
-//    }
+        //in JPA Just one line of code!
+        entityManager.merge(personForJPA);
+        return 0;
+    }
 
-//    public int update(PersonForJDBC personForJDBC){
+    public int update(PersonForJPA personForJPA){
+        //in Spring jdbc
 //        return jdbcTemplate.update(
 //                "update person set name = ?, location = ?, birth_date = ? where id = ?" ,
 //                new Object[] {personForJDBC.getName(), personForJDBC.getLocation(),
 //                        new Timestamp(personForJDBC.getBirthDate().getTime()), personForJDBC.getId()});
-//    }
+        //in JPA Just one line of code!
+        entityManager.merge(personForJPA);
+        return 0;
+    }
+
+    public void deleteById(int id){
+        var person = findById(id);
+        entityManager.remove(person);
+//        return jdbcTemplate.update("delete from person where id = ?", new Object[] {id});
+    }
+
+    public List<PersonForJPA> findAll(){
+      return entityManager.createNamedQuery("all persons", PersonForJPA.class).getResultList();
+    }
 }

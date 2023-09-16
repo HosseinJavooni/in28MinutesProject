@@ -3,6 +3,7 @@ package com.in28Minutes.demo;
 import com.in28Minutes.demo.databaseDemo.PersonJdbc.PersonJPARepo;
 import com.in28Minutes.demo.databaseDemo.PersonJdbc.PersonJdbcRepo;
 import com.in28Minutes.demo.databaseDemo.entity.PersonForJDBC;
+import com.in28Minutes.demo.databaseDemo.entity.PersonForJPA;
 import org.slf4j.LoggerFactory;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,5 +35,11 @@ public class HosseinStudyHibernateApplication implements CommandLineRunner {
 		System.out.println(personJdbcRepo.update(new PersonForJDBC(10003, "Mahan", "Tehran", new Date())));
 		System.out.println("===============JPA===============");
 		System.out.println(personJPARepo.findById(10002));
+		personJPARepo.deleteById(1004);
+		var personForJPA = new PersonForJPA(1004, "Mahnoosh", "Amol", new Date());
+		System.out.println(personJPARepo.insert(personForJPA));
+		personForJPA.setName("Mahnoosh Mo");
+		System.out.println(personJPARepo.update(personForJPA));
+		System.out.println(personJPARepo.findAll());
 	}
 }
